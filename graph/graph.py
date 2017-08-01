@@ -22,7 +22,7 @@ def DFS(graph, start):
     def _dfs(start):
         start.visited = True
         print("visited ", start.key)
-        for n in start.neighbors.iterkeys():
+        for n in iter(start.neighbors.keys()):
             if not n.visited:
                 _dfs(n)
 
@@ -31,3 +31,20 @@ def DFS(graph, start):
         return
 
     _dfs(graph.vertices[start])
+
+def BFS(graph, start):
+
+    if start not in graph.vertices:
+        return
+
+    stack = []
+    stack.append(graph.vertices[start])
+
+    while stack:
+        node = stack.pop(0)
+        node.visited = True
+        print("visited:", node.key)
+
+        for nbr in iter(node.neighbors.keys()):
+            if not nbr.visited:
+                stack.append(nbr)
