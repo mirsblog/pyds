@@ -1,39 +1,28 @@
+def longest(s):
+
+    char_map = {}
+    start = 0
+    pos = 0
+    longest = 0
+    lstr = ""
+
+    for index, char in enumerate(s):
+
+        pos = char_map.get(char)
+        if pos is not None and pos >= start:
+            l = index - start
+            if (index - start) > len(lstr):
+                lstr = s[start:index]
+            start = pos + 1
+        char_map[char] = index
+
+    if (len(s) - start) > len(lstr):
+        lstr = s[start:]
+
+    return lstr, len(lstr)
+
 import sys
 
-def longestSubString(s):
-
-    if not s:
-        return ""
-
-    start = 0
-    end = 0
-    longest = ""
-
-    found = []
-    while end < len(s):
-        c = s[end]
-        end += 1
-
-        # char is unique
-        if c not in found:
-            found.append(c)
-            if end - start > len(longest):
-                longest = s[start:end]
-            continue
-
-        # char repeats
-        # move start forward
-        while start < end -1:
-            if s[start] != c:
-                start += 1
-                found.pop(0)
-            else:
-                start+=1
-                break
-
-    return longest
-
-
 if __name__ == "__main__":
-    s = longestSubString(sys.argv[1])
-    print(s, len(s))
+    print(longest("abcabcbb"))
+
